@@ -32,3 +32,6 @@ TARGET_KERNEL_CONFIG := exynos9820-d2s_defconfig
 
 ## Properties
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
+# Flash-day debug: device.mk re-sets ro.debuggable/ro.adb.secure that gen_build_prop
+# emits for user builds; permit last-wins duplicates instead of hard error.
+BUILD_BROKEN_DUP_SYSPROP := true

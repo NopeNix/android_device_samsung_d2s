@@ -59,4 +59,7 @@ PRODUCT_BRAND := samsung
 PRODUCT_MODEL := SM-N975F
 PRODUCT_MANUFACTURER := samsung
 
+## Nopenix release naming (bacon/zip target and ota json filename use this)
+LINEAGE_VERSION := nopenix-$(NOPENIX_VARIANT)-$(NOPENIX_VERSION)-$(shell date +%Y%m%d)-$(PRODUCT_DEVICE)
+
 PRODUCT_GMS_CLIENTID_BASE := android-samsung

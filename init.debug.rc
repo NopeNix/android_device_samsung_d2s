@@ -1,0 +1,10 @@
+# Flash-day debug instrumentation.
+# 2026-10-26: full logcat to /cache/bootlog.txt FILLED the 564MB cache
+# partition overnight (OTA updater then failed with ENOSPC creating its
+# /cache/recovery stash). bootlog now capped at 50MB via head -c; the
+# kmsg tee (adbd-early diagnosis) keeps its filter list.
+service debug_logcat /system/bin/sh -c "logcat -b all -v threadtime 2>&1 | grep -vE 'IKeyDisabler|pixel-thermal|SX9360' | tee /dev/kmsg > /dev/null; logcat -b all -v threadtime 2>&1 | head -c 52428800 > /cache/bootlog.txt"
+    user root
+    group root system log
+    seclabel u:r:su:s0
+    oneshot
