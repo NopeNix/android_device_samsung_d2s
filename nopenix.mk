@@ -5,7 +5,11 @@
 # repo patches/).
 #
 # Variant-specific values (dev vs prod) are switched by NOPENIX_VARIANT,
-# which the build wrapper sets per line (dev for now; prod later).
+# which the build wrapper sets per line:
+#   dev  -> userdebug + WITH_SU=true + WITH_ADB_INSECURE=true +
+#           BUILD_BROKEN_DUP_SYSPROP (set in device tree) + init.debug.rc
+#   prod -> user flavor, WITH_SU=false, no WITH_ADB_INSECURE, no debug knobs
+#           (init.debug.rc and ro.debuggable gated off in device.mk/BoardConfig)
 
 NOPENIX_VARIANT ?= dev
 NOPENIX_VERSION := 13.0

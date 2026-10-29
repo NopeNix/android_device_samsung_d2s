@@ -31,9 +31,12 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/mixer_paths.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths.xml
 
+ifneq ($(NOPENIX_VARIANT),prod)
 # TEMPORARY flash-day debug instrumentation (adbd-early + logcat->kmsg)
+# Dev line only: prod builds ship no debug hooks (docs/dev-prod.md).
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.debug.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/init.debug.rc
+endif
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
@@ -44,11 +47,13 @@ DEVICE_PACKAGE_OVERLAYS += \
 PRODUCT_PACKAGES += \
     libshim_sfpex
 
-# Nopenix flash-day debug: ro.debuggable=1 enables adb root even when
-# system_server wedges. ro.adb.secure is NOT set here: init loads
+# Nopenix flash-day debug (dev line only): ro.debuggable=1 enables adb root
+# even when system_server wedges. ro.adb.secure is NOT set here: init loads
 # system_ext/build.prop AFTER system/build.prop, so system_ext's
 # ro.adb.secure=1 (lineage common.mk) would win. We disable auth via
 # WITH_ADB_INSECURE=true in build-start.sh instead, which makes lineage
 # emit ro.adb.secure=0 in system_ext itself.
+ifneq ($(NOPENIX_VARIANT),prod)
 PRODUCT_SYSTEM_PROPERTIES += \
     ro.debuggable=1
+endif
