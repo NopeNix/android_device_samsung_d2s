@@ -38,10 +38,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init.debug.rc:$(TARGET_COPY_OUT_SYSTEM)/etc/init/init.debug.rc
 endif
 
-# Overlays
+# Overlays. NOTE: the Updater channel overlay is appended in nopenix.mk
+# (variant-dependent), not here.
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay \
-    
+    $(LOCAL_PATH)/overlay
+
 
 # Shims
 PRODUCT_PACKAGES += \

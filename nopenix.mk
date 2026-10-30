@@ -21,14 +21,13 @@ PRODUCT_PRODUCT_PROPERTIES += \
     ro.nopenix.version=$(NOPENIX_VERSION) \
     ro.lineage.build.version=23.2
 
+# Updater OTA channel: DEVICE_PACKAGE_OVERLAYS must pick the overlay BEFORE
+# its value is compiled into the Updater auto-RRO (PRODUCT_ENFORCE_RRO_TARGETS
+# =*). Channel-specific overlays live in overlay/updater/<channel>/values/.
 ifeq ($(NOPENIX_VARIANT),dev)
-# Dev OTA channel (nightly JSON in the hub repo). The crDroid 16 Updater
-# reads the updater_server_url string resource only (no lineage.updater.uri
-# prop support); the override ships as a device-tree resource overlay which
-# PRODUCT_ENFORCE_RRO_TARGETS=* converts into an auto-RRO.
-NOPENIX_OTA_URI := https://raw.githubusercontent.com/NopeNix/d2s-crdroid16/main/ota/dev.json
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay/updater/dev
 else
-NOPENIX_OTA_URI := https://raw.githubusercontent.com/NopeNix/d2s-crdroid16/main/ota/prod.json
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay/updater/prod
 endif
 
-$(warning Nopenix: variant=$(NOPENIX_VARIANT) version=$(NOPENIX_VERSION) ota=$(NOPENIX_OTA_URI))
+$(warning Nopenix: variant=$(NOPENIX_VARIANT) version=$(NOPENIX_VERSION) ota=ota/$(NOPENIX_VARIANT).json)

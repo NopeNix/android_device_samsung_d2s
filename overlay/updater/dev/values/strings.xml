@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Nopenix: point the Updater at our own OTA channel JSON. Converted into
-     a static auto-RRO by PRODUCT_ENFORCE_RRO_TARGETS=*. -->
+<!-- Nopenix DEV channel Updater URL (selected via DEVICE_PACKAGE_OVERLAYS in nopenix.mk). -->
 <resources>
     <string name="updater_server_url" translatable="false">https://raw.githubusercontent.com/NopeNix/d2s-crdroid16/main/ota/dev.json</string>
 </resources>
