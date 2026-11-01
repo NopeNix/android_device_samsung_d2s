@@ -19,7 +19,8 @@ CR_VERSION := $(NOPENIX_VERSION)
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.nopenix.variant=$(NOPENIX_VARIANT) \
     ro.nopenix.version=$(NOPENIX_VERSION) \
-    ro.lineage.build.version=23.2
+    ro.lineage.build.version=23.2 \
+    crdroid.updater.allow_downgrading=true
 
 # Updater OTA channel: DEVICE_PACKAGE_OVERLAYS must pick the overlay BEFORE
 # its value is compiled into the Updater auto-RRO (PRODUCT_ENFORCE_RRO_TARGETS
